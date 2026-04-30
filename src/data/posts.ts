@@ -17,15 +17,6 @@ export const posts: Post[] = [
     readingTime: '8 min read',
     tags: ['agents', 'devex', 'open-source'],
   },
-  {
-    slug: 'scanning-100-ai-repos',
-    title: 'I scanned 100+ popular AI infra repos. Most are not agent-ready.',
-    date: '2026-04-30',
-    excerpt:
-      'We turned agent-readiness against the AI ecosystem itself: frameworks, vector stores, agent runtimes, the lot. 141 repos, 1,127 findings, three patterns nobody has fixed yet — and one finding that surprised even us.',
-    readingTime: '10 min read',
-    tags: ['agents', 'data', 'open-source'],
-  },
 ];
 
 export function getPost(slug: string): Post | undefined {

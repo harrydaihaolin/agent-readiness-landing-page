@@ -22,7 +22,7 @@ export const posts: Post[] = [
     title: 'I scanned 96 popular AI infra repos. Most are not agent ready.',
     date: '2026-04-30',
     excerpt:
-      '64% of the most-starred AI infrastructure repos ship without any agent-targeted documentation. Three are functionally unrunnable end-to-end by an agent. AutoGPT has an 11-byte CLAUDE.md. The data, with names.',
+      'About two-thirds of a curated set of ninety-six popular AI infra repos have no agent-targeted docs. A few ship placeholder files instead of real ones. Three hit the worst case — nothing to read, run, or verify. Numbers without naming names.',
     readingTime: '7 min read',
     tags: ['agents', 'data', 'open-source'],
   },

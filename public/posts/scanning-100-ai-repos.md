@@ -1,58 +1,41 @@
 # I scanned 96 popular AI infra repos. Most are not agent ready.
 
-The pitch that LLM agents are now part of the developer toolchain assumes the toolchain is shaped for them. So I pointed [`agent-readiness`](https://github.com/harrydaihaolin/agent-readiness) at the AI ecosystem itself — 96 of the most-starred frameworks, runtimes, vector stores, and orchestration tools — and looked at what would happen if a coding agent landed in each of them with no human nearby.
+The pitch that LLM agents are now part of the developer toolchain assumes the toolchain is shaped for them. I ran [`agent-readiness`](https://github.com/harrydaihaolin/agent-readiness) against a fixed list of ninety-six widely used open-source projects — frameworks, runtimes, vector stores, and orchestration tools — and asked a simple question: if a coding agent landed in each repo with no human nearby, what would it actually have to work with?
 
-The most uncomfortable finding came first: **64% of these repos do not have an AGENTS.md, CLAUDE.md, .cursor/rules/, or any other agent-targeted documentation**. That is the infrastructure for AI agents shipping without docs for AI agents.
+The most uncomfortable finding came first: **about two-thirds of these repos have no agent-targeted documentation** — no `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`, or the other filenames the ecosystem has started to standardize on. That is infrastructure for AI agents shipping without docs for AI agents.
 
-## The 64% gap
+## The two-thirds gap
 
-`agent_docs.canonical` is one of the simpler checks in the rules pack. It looks for any of `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursorrules`, `.cursor/rules/*.mdc`, `.github/copilot-instructions.md`, and a long tail of related conventions. Sixty-one of the ninety-six repos have none of them.
+The scan looks for the usual agent-doc locations: `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursorrules`, `.cursor/rules/*.mdc`, `.github/copilot-instructions.md`, and a handful of related paths. **Sixty-one of the ninety-six** projects had none of them.
 
-The list of who is missing it is the surprising part:
+What surprised me was not the percentage but the *shape* of the set. The misses are not obscure forks. They cluster in places you would expect to be exemplars: widely used SDKs, major inference and training stacks, orchestration and data platforms, and projects whose own marketing assumes agents are part of the workflow. In other words, the gap is structural — it is where the ecosystem is loudest about agents, not where it is quiet.
 
-- `anthropics/anthropic-sdk-python` — the official SDK from the company that publishes the AGENTS.md convention.
-- `microsoft/autogen`, `microsoft/promptflow`, `microsoft/semantic-kernel`, `microsoft/TaskWeaver`, `microsoft/graphrag` — Microsoft's full agent surface.
-- `openai/swarm`, `openai/openai-python` — same pattern at OpenAI.
-- `huggingface/peft`, `huggingface/accelerate`, `huggingface/text-generation-inference` — most of the HF training stack.
-- `ollama/ollama`, `langchain-ai/langgraph`, `run-llama/llama_index`, `stanfordnlp/dspy`, `letta-ai/letta`, `dagster-io/dagster`, `kubernetes/kubernetes`.
+None of those repos gives an agent a single canonical place to read how to install, run, test, or what not to touch. A human can infer from a README; an agent burns context and guesses.
 
-These are not stragglers. Together they are most of the runtime, training, and orchestration surface the agents people are building actually depend on. None of them tell an agent landing in the repo what its canonical commands are, what files to leave alone, or how the contributors expect a change to look.
+## Placeholder files
 
-## The placeholder tell
+A smaller but sharper pattern sits in the minority that *do* ship an agent-facing file. A few repos have an `AGENTS.md` or `CLAUDE.md` that is only a handful of bytes — effectively a stub. That reads as awareness of the convention without investment in it. One high-star agent-oriented project had an eleven-byte `CLAUDE.md`: the file exists, but there is nothing for an agent to read.
 
-A more interesting cluster sits inside the 36% that *do* have an agent doc. The `meta.consistency` check looks for `AGENTS.md` / `CLAUDE.md` files smaller than 100 bytes — placeholders that signal awareness of the convention without commitment to it. Four repos hit it:
+## The worst case: nothing to read, run, or verify
 
-- `Significant-Gravitas/AutoGPT` — `CLAUDE.md` is **11 bytes**. One line.
-- `modelcontextprotocol/python-sdk` — placeholder agent doc in the SDK for the protocol Anthropic shipped specifically so agents could navigate code.
-- `vllm-project/vllm` — same.
-- `n8n-io/n8n` — same.
+A stricter composite only fires when **all** of the following are missing at once: any agent-targeted doc, a conventional entry point (for example declared scripts in a manifest, or a recognised `main` / CLI layout), and any statically discoverable test signal (for example a `test` target in a Makefile, pytest config, or obvious test tree).
 
-The rule does not name and shame; it just measures. But the optics are hard to miss. AutoGPT, of all repos, has set out the file an agent would read first and put eleven bytes in it.
+**Three** of the ninety-six repos hit that bar. That is a small fraction, but it is the floor: an agent there cannot read a dedicated doc, cannot find something obvious to run, and cannot find something obvious to verify. Even a perfect README is not enough if the machine-readable affordances are absent.
 
-## The unrunnable tail
+## READMEs that do not hand an agent a command
 
-The harshest single rule in the new pack is `headless.unrunnable_e2e`. It fires only when a repo simultaneously has (a) no agent-targeted docs anywhere, (b) no conventional entry point — no `[project.scripts]`, no `package.json` `bin`/`main`, no `main.py`/`main.go`/`index.ts`, etc. — and (c) no statically-discoverable test command. Three of the ninety-six trip it:
-
-- `TencentQQGYLab/AppAgent`
-- `kubeflow/kubeflow`
-- `simular-ai/Agent-S`
-
-For those three, an agent landing in the repo cannot read a doc, cannot run anything, and cannot verify anything. Even a perfect plan from the README is dead-on-arrival without trial and error. That is a small minority — but it is also the absolute floor of the agent-readiness distribution, and it includes one of Google's open-source ML platforms and a top-25 agent framework.
-
-## The README that does not tell you how to run anything
-
-Forty-two percent of the repos (40 of 96) trip `readme.has_run_instructions`. The rule looks for the basics — fenced code blocks, plus install / run / test signals. The repos that miss it include `anthropics/anthropic-sdk-python`, `microsoft/autogen`, `microsoft/semantic-kernel`, `microsoft/graphrag`, `kubernetes/kubernetes`, `langchain-ai/langgraph`, and `huggingface/smolagents`. Several have READMEs full of prose and screenshots but no copy-pasteable command an agent can run verbatim. Several have a "Get started" link that points to a docs site — fine for humans, opaque to a sandboxed agent that cannot browse.
+**About forty percent** of the corpus tripped a check for run instructions in the main README: fenced commands, and clear install / run / test signals. A fair number lean on prose, screenshots, or “see our docs site” links. That is fine for humans who can click through; it is brittle for a sandboxed agent that cannot browse the way a person does.
 
 ## What I am not claiming
 
-The v1 of this post led with a "popular repos are leaking secrets" angle that did not survive the rewrite. After the path-aware FP filters in `secrets.basic_scan` (`example|fixture|mock|sample|docs|test*` segments excluded), 12 of 96 repos still show secret-shaped strings — but most of those are still fixture data indistinguishable from real keys at scan time. I am not claiming twelve popular repos are leaking real keys. The signal is real and worth looking at on a repo-by-repo basis; it is not a headline.
+An earlier draft leaned on “secrets in popular repos.” After stricter path filtering, **about one in eight** repos still contains *something* that looks like a secret to a pattern matcher. I am **not** claiming that means one in eight projects is leaking production keys. A lot of that is fixture data, examples, and test harness strings that are indistinguishable from real secrets in a static scan. Treat that bucket as “worth a human pass,” not as a headline.
 
-## Honest noise: the file-size rule
+## A noisy signal: very large files
 
-The single largest finding bucket is still `repo_shape.large_files` at 96% repo coverage even after halved weight and a `exclude_globs` list (lock files, changelogs, binary assets, vendored OSS). This is over-firing — the next iteration will either lower its weight further or extend the excludes to autogenerated bindings (`*_pb2.py`, `*.generated.*`) and schema dumps. The rule is queued for a follow-up PR and is not part of any conclusion above.
+The single broadest warning in the run is still “oversized” source files — it fires for almost everyone in this cohort even after excluding lockfiles, changelogs, and common binary paths. That rule is useful for surfacing cognitive load, but it is also **over-inclusive** for this population (generated code, schemas, vendored trees). I am not building conclusions on top of it; a future rules revision will narrow it. Consider it background noise, not a verdict.
 
-## Method
+## How this was measured
 
-`agent-readiness` is an open-source CLI ([github.com/harrydaihaolin/agent-readiness](https://github.com/harrydaihaolin/agent-readiness)) with rules in a separate pack ([github.com/harrydaihaolin/agent-readiness-rules](https://github.com/harrydaihaolin/agent-readiness-rules)). For this scan I shallow-cloned the 96-repo curated set in [agent-readiness-leaderboard/scripts/scan.py](https://github.com/harrydaihaolin/agent-readiness-leaderboard) and aggregated WARN/ERROR findings with [scripts/judge.py](https://github.com/harrydaihaolin/agent-readiness-research). The new `headless.unrunnable_e2e` rule was vendored from the rules repo for this run and is on its way to a tagged release. Full triage notes — including the latent `test_command.discoverable` bug I worked around in the new composite — are in [research/scan_2026-04-30_triage.md](https://github.com/harrydaihaolin/agent-readiness-research/blob/main/research/scan_2026-04-30_triage.md).
+[`agent-readiness`](https://github.com/harrydaihaolin/agent-readiness) is an open-source CLI. Rules live in [`agent-readiness-rules`](https://github.com/harrydaihaolin/agent-readiness-rules). The public leaderboard and the underlying scan are at [`agent-readiness-leaderboard`](https://github.com/harrydaihaolin/agent-readiness-leaderboard) and [the live site](https://harrydaihaolin.github.io/agent-readiness-leaderboard/). The ninety-six projects are a curated, reproducible set — not a random sample of GitHub — so the percentages are “on this list,” not “on the entire internet.”
 
-The leaderboard is at [agent-readiness-leaderboard](https://harrydaihaolin.github.io/agent-readiness-leaderboard/). Re-runs daily; an AGENTS.md is the cheapest single change a maintainer of any of the 61 repos above can make.
+If you maintain one of these projects, the cheapest upgrade is still the same: add a real `AGENTS.md` (or equivalent) with install, test, run, and “do not touch” guidance. Your human contributors will thank you too.

@@ -16,19 +16,13 @@ export default function BlogPost() {
   const [state, setState] = useState<FetchState>({ status: 'loading' });
 
   useEffect(() => {
-    if (!slug) {
-      setState({ status: 'error', message: 'No post specified.' });
-      return;
-    }
-    if (!post) {
-      setState({ status: 'error', message: 'Post not found.' });
+    if (!slug || !post) {
       return;
     }
 
     const url = `${import.meta.env.BASE_URL}posts/${slug}.md`;
-    setState({ status: 'loading' });
-
     let cancelled = false;
+
     fetch(url)
       .then(async (res) => {
         if (!res.ok) {

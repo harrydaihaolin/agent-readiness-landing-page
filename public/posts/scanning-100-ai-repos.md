@@ -1,4 +1,4 @@
-# I scanned 96 popular AI infra repos. Most have never met an agent.
+# I scanned 96 popular AI infra repos. Most are not agent ready.
 
 The pitch that LLM agents are now part of the developer toolchain assumes the toolchain is shaped for them. So I pointed [`agent-readiness`](https://github.com/harrydaihaolin/agent-readiness) at the AI ecosystem itself — 96 of the most-starred frameworks, runtimes, vector stores, and orchestration tools — and looked at what would happen if a coding agent landed in each of them with no human nearby.
 

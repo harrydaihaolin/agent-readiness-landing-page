@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="border-t border-ink-700/60 bg-ink-900/80">
@@ -15,6 +17,7 @@ export default function Footer() {
           </p>
         </div>
         <nav className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm text-white/65 md:grid-cols-3">
+          <Link className="hover:text-white" to="/blog">Blog</Link>
           <a className="hover:text-white" href="https://github.com/harrydaihaolin/agent-readiness">CLI</a>
           <a className="hover:text-white" href="https://github.com/harrydaihaolin/agent-readiness-rules">Rules</a>
           <a className="hover:text-white" href="https://github.com/harrydaihaolin/agent-readiness-action">Action</a>

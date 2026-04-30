@@ -19,11 +19,11 @@ export const posts: Post[] = [
   },
   {
     slug: 'scanning-100-ai-repos',
-    title: 'I scanned 100+ popular AI infra repos. Most are not agent-ready.',
+    title: 'I scanned 96 popular AI infra repos. Most are not agent ready.',
     date: '2026-04-30',
     excerpt:
-      'We turned agent-readiness against the AI ecosystem itself: frameworks, vector stores, agent runtimes, the lot. 141 repos, 1,127 findings, three patterns nobody has fixed yet — and one finding that surprised even us.',
-    readingTime: '10 min read',
+      '64% of the most-starred AI infrastructure repos ship without any agent-targeted documentation. Three are functionally unrunnable end-to-end by an agent. AutoGPT has an 11-byte CLAUDE.md. The data, with names.',
+    readingTime: '7 min read',
     tags: ['agents', 'data', 'open-source'],
   },
 ];

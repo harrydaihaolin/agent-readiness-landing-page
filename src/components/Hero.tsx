@@ -12,7 +12,16 @@ export default function Hero() {
           agent ships your work or thrashes for an hour.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a className="btn-primary" href="#pricing">See plans</a>
+          <a
+            className="btn-primary"
+            href="#pricing"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            See plans
+          </a>
           <a className="btn-ghost" href="https://github.com/harrydaihaolin/agent-readiness">
             View on GitHub
           </a>

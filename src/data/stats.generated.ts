@@ -4,8 +4,9 @@
 import type { Stat } from './stats';
 
 export const stats: Stat[] = [
-  { label: 'Repos benchmarked', value: '96+', detail: "on the public leaderboard (as of 2026-05-01)" },
-  { label: 'Checks shipped', value: '—', detail: 'YAML rules across all four pillars' },
-  { label: 'Median score', value: '71', detail: "across the public sample (as of 2026-05-01)" },
+  { label: 'Repos benchmarked', value: '94+', detail: "on the public leaderboard (as of 2026-05-02)" },
+  { label: 'Checks shipped', value: '7', detail: 'YAML rules across all four pillars' },
+  { label: 'Median score', value: '71', detail: "across the public sample (as of 2026-05-02)" },
   { label: 'PRs to fix-hint', value: '< 5 min', detail: 'using --json + agent loop' },
+  { label: "Largest cohort scanned", value: "1000+ repos", detail: "stratified across 9 topics / 4 star bands", href: "https://github.com/harrydaihaolin/agent-readiness-leaderboard/releases/tag/v3-2026-05-01" },
 ];

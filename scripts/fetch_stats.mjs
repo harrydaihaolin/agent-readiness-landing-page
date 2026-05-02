@@ -122,6 +122,17 @@ function fmtDate(iso) {
   return d.toISOString().slice(0, 10);
 }
 
+// Static metadata about the v3 frozen cohort release. Lives outside
+// the daily scores.json envelope (it's a one-shot immutable artefact),
+// so we record it here and fold it into the rendered stats. Update
+// when a future v4 freeze lands.
+const V3_COHORT = {
+  label: 'Largest cohort scanned',
+  value: '1000+ repos',
+  detail: 'stratified across 9 topics / 4 star bands',
+  href: 'https://github.com/harrydaihaolin/agent-readiness-leaderboard/releases/tag/v3-2026-05-01',
+};
+
 function render(stats, source) {
   const asOf = fmtDate(stats.lastUpdated);
   const detail = (text) =>
@@ -144,6 +155,7 @@ function render(stats, source) {
     `  { label: 'Checks shipped', value: '${checksValue}', detail: 'YAML rules across all four pillars' },`,
     `  { label: 'Median score', value: '${stats.medianScore == null ? '—' : Math.round(stats.medianScore)}', detail: ${JSON.stringify(detail('across the public sample'))} },`,
     "  { label: 'PRs to fix-hint', value: '< 5 min', detail: 'using --json + agent loop' },",
+    `  { label: ${JSON.stringify(V3_COHORT.label)}, value: ${JSON.stringify(V3_COHORT.value)}, detail: ${JSON.stringify(V3_COHORT.detail)}, href: ${JSON.stringify(V3_COHORT.href)} },`,
     '];',
     '',
   ].join('\n');

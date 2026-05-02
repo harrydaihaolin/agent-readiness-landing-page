@@ -1,0 +1,10 @@
+{
+  "_comment": "Last-known leaderboard snapshot used when scripts/fetch_stats.mjs cannot reach the live URL. Refreshed manually whenever the live shape changes. The repos array has just enough entries (sorted in derive order) for a representative median; we don't try to mirror the full feed offline.",
+  "last_updated": "2026-05-01T08:04:35.663509+00:00",
+  "total_repos": 96,
+  "source": "agent-readiness-leaderboard@offline-fallback",
+  "repos": [
+    { "overall_score": 71 },
+    { "overall_score": 71 }
+  ]
+}

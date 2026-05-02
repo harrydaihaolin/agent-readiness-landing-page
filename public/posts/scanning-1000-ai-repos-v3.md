@@ -537,11 +537,17 @@ under "Resolved 2026-05 (v1.5.0 sweep)". The new community-contributed
 `cognitive_load.readme_root_present` check also lands in the v1.5.0
 pack (38 checks total).
 
-Production confirmation gate is the v3.2 cohort snapshot
-(`agent-readiness-leaderboard/data/releases/scores_v3_1000_2026-05-XX.json`),
-cut by `release-v3-snapshot.yml` once the leaderboard's pin is on
-1.5.0. If `repo_shape.large_files` lands outside the 30–60% band on
-v3.2, a v1.5.1 patch tunes thresholds further.
+Production confirmation: the v3.2 snapshot
+([`scores_v3_1000_2026-05-02.json`](https://github.com/harrydaihaolin/agent-readiness-leaderboard/blob/main/data/releases/scores_v3_1000_2026-05-02.json),
+993/1000 scanned cleanly, rules pack v1.5.0, 38 checks) lands the
+`repo_shape.large_files` top-findings fire rate at **69.9%** —
+significant movement from 88.1% on v3.1, but ~10 points above the
+30–60% target band. The article's pre-declared gate triggers a
+**v1.5.1 follow-up**: `threshold_lines` likely wants 2500–3000 to
+reach the discriminative band, with `threshold_bytes` scaling
+proportionally. Tracked under
+[`research/ideas.md`](https://github.com/harrydaihaolin/agent-readiness-research/blob/main/research/ideas.md)
+for the next sweep round (the present sweep is closed).
 
 The v1.5.0 ideas sweep also adds a reusable validation harness
 ([`scripts/validate_proposed_checks.py`](https://github.com/harrydaihaolin/agent-readiness-research/blob/main/scripts/validate_proposed_checks.py))

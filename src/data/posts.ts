@@ -26,6 +26,15 @@ export const posts: Post[] = [
     readingTime: '7 min read',
     tags: ['agents', 'data', 'open-source'],
   },
+  {
+    slug: 'scanning-1000-ai-repos-v3',
+    title: 'I scanned 1000 AI / agent repos. The 64% pattern holds at scale.',
+    date: '2026-05-02',
+    excerpt:
+      "The v2 article looked at 96 curated AI infra repos. v3 stratifies the search across 9 topics × 4 star bands and lands on 994 successfully-scanned repos: 67.7% still ship without agent-targeted docs. Replicates v2's headline at 10× the cohort, with stratified slices by language and star band.",
+    readingTime: '12 min read',
+    tags: ['agents', 'data', 'open-source', 'rules-pack-v1.4.0'],
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {

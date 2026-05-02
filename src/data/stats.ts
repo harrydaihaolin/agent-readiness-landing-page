@@ -2,6 +2,9 @@ export interface Stat {
   label: string;
   value: string;
   detail?: string;
+  /** Optional href that wraps the stat tile (used for "Largest cohort scanned"
+   *  to deep-link the v3 GitHub Release). */
+  href?: string;
 }
 
 // `stats.generated.ts` is built by `scripts/fetch_stats.mjs` (wired into

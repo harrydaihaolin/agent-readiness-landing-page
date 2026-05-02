@@ -4,11 +4,9 @@ export interface Stat {
   detail?: string;
 }
 
-// Keep these copy-only for v0; a follow-up will hydrate at build time
-// from agent-readiness-leaderboard's scores.json.
-export const stats: Stat[] = [
-  { label: 'Repos benchmarked', value: '120+', detail: 'on the public leaderboard' },
-  { label: 'Checks shipped', value: '22 + 7', detail: 'core + OSS rule pack' },
-  { label: 'Median score', value: '64', detail: 'across the public sample' },
-  { label: 'PRs to fix-hint', value: '< 5 min', detail: 'using --json + agent loop' },
-];
+// `stats.generated.ts` is built by `scripts/fetch_stats.mjs` (wired into
+// the `prebuild` / `predev` npm scripts). It hydrates from the leaderboard's
+// public scores.json and falls back to `stats.fallback.json` when the
+// network is unreachable. If you're seeing a "module not found" error here,
+// run `node scripts/fetch_stats.mjs` once to materialise the file.
+export { stats } from './stats.generated';

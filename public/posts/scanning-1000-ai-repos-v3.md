@@ -505,6 +505,52 @@ roughly halved that.
   the cohort. A future cohort can sample by activity instead of
   popularity.
 
+## v1.5.0 follow-up (2026-05-02)
+
+The v3 article was originally cut against rules pack v1.4.0 (37
+checks). The same day the article landed, the v1.5.0 ideas-sweep
+closed out the 19-item v3.1 backlog. **One** rule change shipped in
+v1.5.0; **18** items were closed as deferred-with-rationale, each
+carrying the exact matcher gap or research-grade gate that blocked
+shipping. Honest delivery rather than rushed half-validated rules.
+
+What shipped in v1.5.0:
+
+* `repo_shape.large_files` thresholds bumped from 500 lines / 50 KB
+  → 1500 lines / 150 KB (IL3-V31-A from the article's
+  honest-noise table). v3.1 fire rate was 88.1% (no longer
+  discriminating); calibration target band 30–60%.
+
+What's deferred (with the gap captured for follow-up):
+
+* 8 items need engine matcher work — small additions like
+  `include_globs` on the `file_size` matcher or `path_include_globs`
+  on `git_log_query`'s `churn_hotspots` mode.
+* 5 items need a corpus probe or schema change before they can ship
+  honestly.
+* 5 items are research-grade or "observe-don't-ship" by their own
+  acceptance criteria.
+
+Full disposition matrix lives at
+[`research/ideas.archive.md`](https://github.com/harrydaihaolin/agent-readiness-research/blob/main/research/ideas.archive.md)
+under "Resolved 2026-05 (v1.5.0 sweep)". The new community-contributed
+`cognitive_load.readme_root_present` check also lands in the v1.5.0
+pack (38 checks total).
+
+Production confirmation gate is the v3.2 cohort snapshot
+(`agent-readiness-leaderboard/data/releases/scores_v3_1000_2026-05-XX.json`),
+cut by `release-v3-snapshot.yml` once the leaderboard's pin is on
+1.5.0. If `repo_shape.large_files` lands outside the 30–60% band on
+v3.2, a v1.5.1 patch tunes thresholds further.
+
+The v1.5.0 ideas sweep also adds a reusable validation harness
+([`scripts/validate_proposed_checks.py`](https://github.com/harrydaihaolin/agent-readiness-research/blob/main/scripts/validate_proposed_checks.py))
+so future ideas-sweeps gate proposed YAML against a stratified sample
+of the v3 cohort before opening the rule-pack PR. The harness is
+intentionally OSS-engine-faithful (imports `agent_readiness.rules_eval`
+rather than re-implementing matchers) so the validator and the
+shipped engine cannot disagree.
+
 ## Community-readiness checklist (gates publication)
 
 Tracked in

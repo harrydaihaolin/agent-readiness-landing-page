@@ -10,6 +10,7 @@ import Faq from './components/Faq';
 import Footer from './components/Footer';
 import BlogList from './components/BlogList';
 import BlogPost from './components/BlogPost';
+import RoiCalculator from './components/RoiCalculator';
 
 function Home() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/roi" element={<RoiCalculator />} />
           </Routes>
         </main>
         <Footer />

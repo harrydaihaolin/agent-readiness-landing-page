@@ -38,6 +38,7 @@ export default function Nav() {
             FAQ
           </a>
           <Link className="hover:text-white" to="/blog">Blog</Link>
+          <Link className="hover:text-white" to="/roi">ROI</Link>
           <a className="hover:text-white" href="https://github.com/harrydaihaolin/agent-readiness">
             GitHub
           </a>

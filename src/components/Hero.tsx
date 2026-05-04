@@ -14,16 +14,17 @@ export default function Hero() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a
             className="btn-primary"
-            href="#pricing"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            href="https://github.com/harrydaihaolin/agent-readiness#install"
           >
-            See plans
+            Install the CLI
           </a>
-          <a className="btn-ghost" href="https://github.com/harrydaihaolin/agent-readiness">
-            View on GitHub
+          <a
+            className="btn-ghost"
+            href="https://harrydaihaolin.github.io/agent-readiness-leaderboard/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View the leaderboard
           </a>
         </div>
 

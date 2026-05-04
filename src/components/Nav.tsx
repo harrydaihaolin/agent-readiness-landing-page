@@ -31,8 +31,13 @@ export default function Nav() {
           <a className="hover:text-white" href="/" onClick={scrollToOnHome('features')}>
             Features
           </a>
-          <a className="hover:text-white" href="/" onClick={scrollToOnHome('pricing')}>
-            Pricing
+          <a
+            className="hover:text-white"
+            href="https://harrydaihaolin.github.io/agent-readiness-leaderboard/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Leaderboard
           </a>
           <a className="hover:text-white" href="/" onClick={scrollToOnHome('faq')}>
             FAQ
@@ -49,7 +54,7 @@ export default function Nav() {
           >
             Star
           </a>
-          <a className="btn-primary" href="/" onClick={scrollToOnHome('pricing')}>
+          <a className="btn-primary" href="/" onClick={scrollToOnHome('features')}>
             Get started
           </a>
         </div>

@@ -12,8 +12,8 @@ export default function Footer() {
             agent-readiness
           </div>
           <p className="mt-2 max-w-md text-xs text-white/50">
-            MIT-licensed scanner. Pro/Team/Enterprise are commercial offerings on
-            top of the OSS core. Built by maintainers, for maintainers.
+            MIT-licensed scanner, rules pack, and every distribution surface.
+            Built by maintainers, for maintainers.
           </p>
         </div>
         <nav className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm text-white/65 md:grid-cols-3">

@@ -35,15 +35,6 @@ export const posts: Post[] = [
     readingTime: '14 min read',
     tags: ['agents', 'data', 'open-source', 'rules-pack-v1.4.0'],
   },
-  {
-    slug: 'rules-engine-v10-to-v20-journey',
-    title: 'From freeform fix_hint to deterministic concrete action: proving the rules engine improved',
-    date: '2026-05-02',
-    excerpt:
-      "Five rule-pack versions, one principle: every friction must map to a deterministic concrete action that lets an autonomous coding agent know exactly what to change, where, and how to verify. M7 rule-coverage went 0% → 100%. D1/D2 went 44% → 100% on the paired 50-finding sample (McNemar's test, p < 0.0001). D3 went 38% → 68% (p < 0.001). EXP-4 ships a per-repo top_action pin with 86% top-1 agreement and 100% coverage.",
-    readingTime: '9 min read',
-    tags: ['agents', 'data', 'open-source', 'rules-engine', 'experiments'],
-  },
 ];
 
 export function getPost(slug: string): Post | undefined {

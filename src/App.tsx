@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import Stats from './components/Stats';
 import Features from './components/Features';
 import OpenSourceCallout from './components/OpenSourceCallout';
-import Pricing from './components/Pricing';
 import Faq from './components/Faq';
 import Footer from './components/Footer';
 import BlogList from './components/BlogList';
@@ -18,7 +17,6 @@ function Home() {
       <Stats />
       <Features />
       <OpenSourceCallout />
-      <Pricing />
       <Faq />
     </>
   );

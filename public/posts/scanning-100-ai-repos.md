@@ -6,7 +6,7 @@ The most uncomfortable finding came first: **64% of these repos do not have an A
 
 ## The 64% gap
 
-`agent_docs.canonical` is one of the simpler checks in the rules pack. It looks for any of `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursorrules`, `.cursor/rules/*.mdc`, `.github/copilot-instructions.md`, and a long tail of related conventions. Sixty-one of the ninety-six repos have none of them.
+The canonical agent-doc check is one of the simpler ones in the rules pack. It looks for any of `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursorrules`, `.cursor/rules/*.mdc`, `.github/copilot-instructions.md`, and a long tail of related conventions. Sixty-one of the ninety-six repos have none of them.
 
 The list of who is missing it is the surprising part:
 
@@ -20,7 +20,7 @@ These are not stragglers. Together they are most of the runtime, training, and o
 
 ## The placeholder tell
 
-A more interesting cluster sits inside the 36% that *do* have an agent doc. The `meta.consistency` check looks for `AGENTS.md` / `CLAUDE.md` files smaller than 100 bytes — placeholders that signal awareness of the convention without commitment to it. Four repos hit it:
+A more interesting cluster sits inside the 36% that *do* have an agent doc. A separate consistency check looks for `AGENTS.md` / `CLAUDE.md` files smaller than 100 bytes — placeholders that signal awareness of the convention without commitment to it. Four repos hit it:
 
 - `Significant-Gravitas/AutoGPT` — `CLAUDE.md` is **11 bytes**. One line.
 - `modelcontextprotocol/python-sdk` — placeholder agent doc in the SDK for the protocol Anthropic shipped specifically so agents could navigate code.
@@ -31,7 +31,7 @@ The rule does not name and shame; it just measures. But the optics are hard to m
 
 ## The unrunnable tail
 
-The harshest single rule in the new pack is `headless.unrunnable_e2e`. It fires only when a repo simultaneously has (a) no agent-targeted docs anywhere, (b) no conventional entry point — no `[project.scripts]`, no `package.json` `bin`/`main`, no `main.py`/`main.go`/`index.ts`, etc. — and (c) no statically-discoverable test command. Three of the ninety-six trip it:
+The harshest single rule in the new pack is the headless end-to-end runnability check. It fires only when a repo simultaneously has (a) no agent-targeted docs anywhere, (b) no conventional entry point — no `[project.scripts]`, no `package.json` `bin`/`main`, no `main.py`/`main.go`/`index.ts`, etc. — and (c) no statically-discoverable test command. Three of the ninety-six trip it:
 
 - `TencentQQGYLab/AppAgent`
 - `kubeflow/kubeflow`
@@ -41,18 +41,18 @@ For those three, an agent landing in the repo cannot read a doc, cannot run anyt
 
 ## The README that does not tell you how to run anything
 
-Forty-two percent of the repos (40 of 96) trip `readme.has_run_instructions`. The rule looks for the basics — fenced code blocks, plus install / run / test signals. The repos that miss it include `anthropics/anthropic-sdk-python`, `microsoft/autogen`, `microsoft/semantic-kernel`, `microsoft/graphrag`, `kubernetes/kubernetes`, `langchain-ai/langgraph`, and `huggingface/smolagents`. Several have READMEs full of prose and screenshots but no copy-pasteable command an agent can run verbatim. Several have a "Get started" link that points to a docs site — fine for humans, opaque to a sandboxed agent that cannot browse.
+Forty-two percent of the repos (40 of 96) miss the run-instructions check. The rule looks for the basics — fenced code blocks, plus install / run / test signals. The repos that miss it include `anthropics/anthropic-sdk-python`, `microsoft/autogen`, `microsoft/semantic-kernel`, `microsoft/graphrag`, `kubernetes/kubernetes`, `langchain-ai/langgraph`, and `huggingface/smolagents`. Several have READMEs full of prose and screenshots but no copy-pasteable command an agent can run verbatim. Several have a "Get started" link that points to a docs site — fine for humans, opaque to a sandboxed agent that cannot browse.
 
 ## What I am not claiming
 
-The v1 of this post led with a "popular repos are leaking secrets" angle that did not survive the rewrite. After the path-aware FP filters in `secrets.basic_scan` (`example|fixture|mock|sample|docs|test*` segments excluded), 12 of 96 repos still show secret-shaped strings — but most of those are still fixture data indistinguishable from real keys at scan time. I am not claiming twelve popular repos are leaking real keys. The signal is real and worth looking at on a repo-by-repo basis; it is not a headline.
+The first cut of this post led with a "popular repos are leaking secrets" angle that did not survive the rewrite. After the secrets check filters out fixture and example paths (`example|fixture|mock|sample|docs|test*`), 12 of 96 repos still show secret-shaped strings — but most of those are still fixture data indistinguishable from real keys at scan time. I am not claiming twelve popular repos are leaking real keys. The signal is real and worth looking at on a repo-by-repo basis; it is not a headline.
 
 ## Honest noise: the file-size rule
 
-The single largest finding bucket is still `repo_shape.large_files` at 96% repo coverage even after halved weight and a `exclude_globs` list (lock files, changelogs, binary assets, vendored OSS). This is over-firing — the next iteration will either lower its weight further or extend the excludes to autogenerated bindings (`*_pb2.py`, `*.generated.*`) and schema dumps. The rule is queued for a follow-up PR and is not part of any conclusion above.
+The single largest finding bucket is still the large-files check at 96% repo coverage even after halved weight and a default exclude list (lock files, changelogs, binary assets, vendored dependencies). This is over-firing — the next iteration will either lower its weight further or extend the excludes to autogenerated bindings (`*_pb2.py`, `*.generated.*`) and schema dumps. The rule is queued for a follow-up release and is not part of any conclusion above.
 
 ## Method
 
-`agent-readiness` is an open-source CLI ([github.com/harrydaihaolin/agent-readiness](https://github.com/harrydaihaolin/agent-readiness)) with rules in a separate pack ([github.com/harrydaihaolin/agent-readiness-rules](https://github.com/harrydaihaolin/agent-readiness-rules)). For this scan I shallow-cloned the 96-repo curated set in [agent-readiness-leaderboard/scripts/scan.py](https://github.com/harrydaihaolin/agent-readiness-leaderboard) and aggregated WARN/ERROR findings with [scripts/judge.py](https://github.com/harrydaihaolin/agent-readiness-research). The new `headless.unrunnable_e2e` rule was vendored from the rules repo for this run and is on its way to a tagged release. Full triage notes — including the latent `test_command.discoverable` bug I worked around in the new composite — are in [research/scan_2026-04-30_triage.md](https://github.com/harrydaihaolin/agent-readiness-research/blob/main/research/scan_2026-04-30_triage.md).
+`agent-readiness` is an open-source CLI ([github.com/harrydaihaolin/agent-readiness](https://github.com/harrydaihaolin/agent-readiness)) with rules in a separate pack ([github.com/harrydaihaolin/agent-readiness-rules](https://github.com/harrydaihaolin/agent-readiness-rules)). For this scan the 96-repo curated set was shallow-cloned and scored, and warn / error findings were aggregated by check and by repo. The headless end-to-end runnability rule was new for this run and shipped to the rules pack shortly after.
 
-The leaderboard is at [agent-readiness-leaderboard](https://harrydaihaolin.github.io/agent-readiness-leaderboard/). Re-runs daily; an AGENTS.md is the cheapest single change a maintainer of any of the 61 repos above can make.
+The [public leaderboard](https://harrydaihaolin.github.io/agent-readiness-leaderboard/) re-runs the same scan daily. An `AGENTS.md` is the cheapest single change a maintainer of any of the 61 repos above can make.

@@ -77,7 +77,7 @@ A few design choices, all consequences of the DevEx framing:
 
 **Untrusted code runs in Docker, always.** Any check that executes scripts from the target repo runs inside a sandboxed container. Safety is a cap on the score, not a soft warning.
 
-**Each finding has a fix hint.** Not "this is bad" but "here is the file, here is the line, here is the change." The same checks that score the repo also tell an agent (or a human) how to raise the score.
+**Each finding has a one-line action and a verify command.** Not "this is bad" but "here is the file, here is the change to make, here is the shell command that returns 0 when you've made it." The same checks that score the repo also tell an agent (or a human) the exact next move that raises the score.
 
 ## What you do with the score
 

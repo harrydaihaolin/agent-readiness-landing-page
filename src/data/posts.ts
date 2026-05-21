@@ -9,6 +9,15 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: 'post-v3-paste-ready-prompts',
+    title: 'What shipped since the 1000-repo article: paste-ready prompts and an agent-led voice',
+    date: '2026-05-21',
+    excerpt:
+      "Three weeks after the v3 cohort scan, the scanner has gone from describing friction to handing the agent a paste-ready fix. Every WARN/ERROR finding now carries a fix_prompt block. Language coverage stopped being Python/JS-first (~20 languages, 50+ CI providers, 27 manifest types). The explanation field and the fix_prompt now share an agent-led voice. The scanner can apply its top recommendation and verify it. And the MCP server exposes list_friction(path) so the agent harness gets the prompts directly.",
+    readingTime: '9 min read',
+    tags: ['agents', 'release-notes', 'open-source', 'rules-pack-v2.3.0', 'agent-readiness-2.4.2'],
+  },
+  {
     slug: 'introducing-agent-readiness',
     title: 'Introducing agent-readiness: scoring repos for the agent era',
     date: '2026-04-30',

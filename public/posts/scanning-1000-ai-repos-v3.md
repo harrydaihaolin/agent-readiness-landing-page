@@ -218,33 +218,3 @@ The current snapshot is the first run where the playbook can cite **actually-fir
 
 * Open an issue on [`agent-readiness-rules`](https://github.com/harrydaihaolin/agent-readiness-rules) with a reproducer.
 * Ask for a re-scan: open a PR adding your repo to the leaderboard's target list ([`scripts/scan.py`](https://github.com/harrydaihaolin/agent-readiness-leaderboard/blob/main/scripts/scan.py)).
-
-## Reproducibility appendix
-
-```bash
-pipx install "agent-readiness==1.4.0"
-
-curl -L -o dataset.json \
-  https://github.com/harrydaihaolin/agent-readiness-leaderboard/raw/main/data/releases/v3_1000_2026-05-01.json
-
-git clone https://github.com/harrydaihaolin/agent-readiness-leaderboard
-cd agent-readiness-leaderboard
-python scripts/scan.py \
-  --experiment-only \
-  --experiment-json ../dataset.json \
-  --output ./replication.json
-```
-
-Reference run (sharded ×4): **~13 min wall-clock for 994 of 1000 repos scanned cleanly**, 6 failures (0.6%, well inside the failure budget).
-
-## What I am not claiming
-
-* No leaderboard ranking of "best AI repo." The score reflects the affordances an automated agent has when it lands cold, not project quality.
-* No claim that low score = bad project. Plenty of excellent repos are deliberately human-first.
-* The discovery pipeline is biased toward star count (GitHub Search API ranks by stars). Long-tail repos under 200 stars are not in the cohort. A future cohort can sample by activity instead of popularity.
-
-## Update — rules pack 1.5.0
-
-The day this article landed, a follow-up sweep closed out a 19-item backlog from the cohort. **One** rule change shipped in v1.5.0 — the large-files thresholds bumped from 500 lines / 50 KB to 1500 lines / 150 KB, because the previous threshold caused the rule to fire on 88% of the cohort and stop discriminating. Eighteen other proposals were closed as deferred-with-rationale, each carrying the exact gap or research-grade gate that blocked shipping.
-
-A re-scan with the new pack landed the large-files fire rate at **69.9%** — significant movement from 88.1%, but still ~10 points above the 30–60% target band. A follow-up bump to 2500–3000 lines is on the next sweep. The new community-contributed `cognitive_load.readme_root_present` check also lands in v1.5.0 (38 checks total).

@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import Features from './components/Features';
+import DashboardMode from './components/DashboardMode';
 import OpenSourceCallout from './components/OpenSourceCallout';
 import Faq from './components/Faq';
 import Footer from './components/Footer';
@@ -16,6 +17,7 @@ function Home() {
       <Hero />
       <Stats />
       <Features />
+      <DashboardMode />
       <OpenSourceCallout />
       <Faq />
     </>

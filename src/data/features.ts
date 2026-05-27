@@ -1,5 +1,5 @@
 export interface Feature {
-  pillar: 'cognitive_load' | 'feedback' | 'flow' | 'safety';
+  pillar: 'cognitive_load' | 'feedback' | 'flow' | 'safety' | 'coordination' | 'inference';
   title: string;
   body: string;
   examples: string[];
@@ -44,6 +44,26 @@ export const features: Feature[] = [
       'No AKIA / sk- credential patterns',
       'No rm -rf in default targets',
       'Sandbox-aware tooling',
+    ],
+  },
+  {
+    pillar: 'coordination',
+    title: 'Coordination (workspaces)',
+    body: 'Multi-repo only. Can agents operate coherently across N sibling repos? Root AGENTS.md, member repos declared, dep / change order documented.',
+    examples: [
+      'Root AGENTS.md with a "Repos in this workspace" section',
+      'Dependency / publish order documented',
+      'Cross-repo invariants captured (e.g. protocol pin)',
+    ],
+  },
+  {
+    pillar: 'inference',
+    title: 'Ontology / inference',
+    body: 'Derived findings — violations the scanner infers from your declared ontology via a hand-rolled forward-chainer. Six rules ship in v3.3.0+.',
+    examples: [
+      'Coupled consumers must agree on the major version',
+      'Repo claims Releasable without a release workflow',
+      'Cross-tenant Action chain without an intent template',
     ],
   },
 ];

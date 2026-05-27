@@ -9,6 +9,24 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: 'bundles-c-and-d-inference-and-dashboard',
+    title: 'Bundles C and D: an ontology inference reasoner and a live dashboard for multi-repo workspaces',
+    date: '2026-05-27',
+    excerpt:
+      "Three things shipped in the last week. First, a hand-rolled forward-chainer that derives six new kinds of finding from your declared ontology — including the dep-graph drift that Bishoy Labib and Mabl both flag as the single most critical failure mode for multi-repo agent work. Second, a live dashboard for multi-repo workspaces, streamed over SSE, with interactive prompts answered inline in the browser instead of blocking the chat for minutes. Third, the agent-readiness skill rewrote SKILL.md to teach itself when to launch the dashboard vs stay in chat. End-to-end: agent-readiness 3.4.1, agent-readiness-mcp 0.7.0, agent-readiness-skill 0.2.0, agent-readiness-insights-protocol 0.11.0.",
+    readingTime: '12 min read',
+    tags: [
+      'agents',
+      'release-notes',
+      'open-source',
+      'ontology',
+      'dashboard',
+      'agent-readiness-3.4.1',
+      'agent-readiness-mcp-0.7.0',
+      'agent-readiness-skill-0.2.0',
+    ],
+  },
+  {
     slug: 'post-v3-paste-ready-prompts',
     title: 'What shipped since the 1000-repo article: paste-ready prompts and an agent-led voice',
     date: '2026-05-21',

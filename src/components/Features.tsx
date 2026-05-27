@@ -5,19 +5,23 @@ const PILLAR_BADGES: Record<string, string> = {
   feedback: 'FB',
   flow: 'FL',
   safety: 'SF',
+  coordination: 'CO',
+  inference: 'IN',
 };
 
 export default function Features() {
   return (
     <section id="features" className="container-narrow py-20">
       <div className="mb-10 max-w-2xl">
-        <span className="pill mb-3">Four pillars</span>
+        <span className="pill mb-3">Six dimensions</span>
         <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
           What gets measured.
         </h2>
         <p className="mt-3 text-white/70">
-          Every check maps to one of four pillars. The pillars roll up to a single
-          score so you can put a meaningful number in CI and watch it move.
+          Four base pillars roll up to a single score per repo. Multi-repo
+          workspaces add a <b>Coordination</b> pillar; declared ontologies
+          add an <b>Inference</b> namespace that derives violations from
+          your atoms and relationships.
         </p>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
